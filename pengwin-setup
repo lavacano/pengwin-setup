@@ -98,6 +98,7 @@ function install_menu() {
       "SERVICES" "Enable services support (SSH, rc.local)" off \
       "SETTINGS" "Change various settings in Pengwin" off \
       "TOOLS" "Install applications or servers" off \
+      "SOUND" "Install sound client and server" off \
       "UNINSTALL" "Uninstall applications and packages installed by pengwin-setup" off
 
     # shellcheck disable=SC2188
@@ -148,6 +149,12 @@ function install_menu() {
     exit_status=$?
   fi
 
+  if [[ ${menu_choice} == *"SOUND"* ]]; then
+    echo "SOUND"
+    bash ${SetupDir}/sound.sh "$@"
+    exit_status=$?
+  fi
+  
   if [[ ${menu_choice} == *"TOOLS"* ]]; then
     echo "TOOLS"
     bash ${SetupDir}/tools.sh "$@"
